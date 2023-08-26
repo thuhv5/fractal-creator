@@ -43,15 +43,6 @@ bool Bitmap::write(std::string filename)
 	if (!file)
 		return false;
 
-	//memset((void*)m_pPixels.get(), 255, m_width*m_height*3);
-
-	int size = m_width*m_height*3;
-	for (int i=0; i<size; ++i)
-	{
-		if (i%3==1)
-			m_pPixels[i] = 255;
-	}
-
 	file.write((char*)&fileHeader, sizeof(fileHeader));
 	file.write((char*)&infoHeader, sizeof(infoHeader));
 	file.write((char*)m_pPixels.get(), m_width*m_height*3);
@@ -63,6 +54,11 @@ bool Bitmap::write(std::string filename)
 
 void Bitmap::setPixel(int x, int y, uint8_t red, uint8_t green, uint8_t blue)
 {
+	uint8_t* pPixel = m_pPixels.get();
+	pPixel += 3*y*m_width + 3*x;
+	pPixel[0] = blue;
+	pPixel[1] = green;
+	pPixel[2] = red;
 }
 
 
