@@ -9,6 +9,8 @@
 #define SRC_BITMAPFILEHEADER_H_
 
 #include <cstdint>
+#pragma pack(2)
+
 namespace fractal_img
 {
 

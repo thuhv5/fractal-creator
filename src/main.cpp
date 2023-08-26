@@ -2,13 +2,15 @@
 using std::cin;
 using std::cout;
 using std::endl;
-#include "BitmapInfoHeader.h"
-#include "BitmapFileHeader.h"
 #include "Bitmap.h"
+
+using namespace fractal_img;
 
 int main()
 {
-	cout << "hello" << endl;
+	Bitmap bitmap(800, 600);
+	bitmap.write("test.bmp");
 
+	cout << "Finished." << endl;
 	return 0;
 }

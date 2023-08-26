@@ -5,9 +5,11 @@
  *      Author: thuhv5
  */
 
+#include <fstream>
 #include "Bitmap.h"
 #include "BitmapFileHeader.h"
 #include "BitmapInfoHeader.h"
+#include "string.h"
 
 using namespace fractal_img;
 
@@ -17,7 +19,7 @@ namespace fractal_img
 Bitmap::Bitmap(int width, int height)
 		: m_width(width),
 		  m_height(height),
-		  m_pPixel(new uint8_t[width*height*3]{})
+		  m_pPixels(new uint8_t[width*height*3]{})
 {
 }
 
@@ -36,7 +38,27 @@ bool Bitmap::write(std::string filename)
 	infoHeader.width = m_width;
 	infoHeader.height = m_height;
 
-	return false;
+	std::ofstream file;
+	file.open(filename, std::ios::out | std::ios::binary);
+	if (!file)
+		return false;
+
+	//memset((void*)m_pPixels.get(), 255, m_width*m_height*3);
+
+	int size = m_width*m_height*3;
+	for (int i=0; i<size; ++i)
+	{
+		if (i%3==1)
+			m_pPixels[i] = 255;
+	}
+
+	file.write((char*)&fileHeader, sizeof(fileHeader));
+	file.write((char*)&infoHeader, sizeof(infoHeader));
+	file.write((char*)m_pPixels.get(), m_width*m_height*3);
+
+	file.close();
+
+	return true;
 }
 
 void Bitmap::setPixel(int x, int y, uint8_t red, uint8_t green, uint8_t blue)
