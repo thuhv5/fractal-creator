@@ -10,6 +10,7 @@
 
 #include <string>
 #include <cstdint>
+#include <memory>
 
 namespace fractal_img
 {
@@ -19,6 +20,7 @@ class Bitmap
 private:
 	int m_width{0};
 	int m_height{0};
+	std::unique_ptr<uint8_t[]> m_pPixel{nullptr};	//defined-size: []
 
 public:
 	Bitmap(int width, int height);
