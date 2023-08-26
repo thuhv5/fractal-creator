@@ -12,9 +12,13 @@ using namespace fractal_img;
 int main()
 {
 	Bitmap bitmap(W, H);
-	for (int i=0; i<W; ++i)
-		for (int j=0; j<H; ++j)
-			bitmap.setPixel(i, j, 0, 255, 0);
+	for (int x=0; x<W; ++x)
+		for (int y=0; y<H; ++y)
+		{
+			bitmap.setPixel(x, y, 255, 255, 0);
+			double xFractal = (x - W/2) / (W/2 / 2);
+			double yFractal = (y - H/2) / (H/2 / 2);
+		}
 
 
 	bitmap.write("test.bmp");
