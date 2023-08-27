@@ -7,6 +7,7 @@ using std::endl;
 #include "Mandelbrot.h"
 #include <cstdint>
 #include <memory>
+#include "ZoomList.h"
 
 #define W 800
 #define H 600
