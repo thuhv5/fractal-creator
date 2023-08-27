@@ -18,6 +18,7 @@ int main()
 	std::unique_ptr<int[]> histogram(new int[Mandelbrot::MAX_ITER + 1]{});
 	std::unique_ptr<int[]> fractal(new int[W*H]{});
 
+	// calc pixels and histogram: pixels per iter
 	for (int x=0; x<W; ++x)
 		for (int y=0; y<H; ++y)
 		{
@@ -29,9 +30,23 @@ int main()
 			if (iters != Mandelbrot::MAX_ITER)
 				++histogram[iters];
 			fractal[y*W+x] = iters;
+		}
 
-			uint8_t bright = (uint8_t)(256*((double)iters / Mandelbrot::MAX_ITER));
-			bright = bright*bright*bright;
+	int total = 0;
+	for (int i=0; i<Mandelbrot::MAX_ITER; ++i)
+		total += histogram[i];
+
+	// rendering, bigger iter == brighter
+	for (int x=0; x<W; ++x)
+		for (int y=0; y<H; ++y)
+		{
+			int iters = fractal[y*W+x];
+
+			double hue = 0;
+			for (int i=0; i<=iters; ++i)
+				hue += (double)histogram[i] / total;
+
+			int bright = hue * 255;
 
 			bitmap.setPixel(x, y, 0, bright, 0);
 		}
