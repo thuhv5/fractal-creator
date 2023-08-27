@@ -20,15 +20,19 @@ int main()
 	std::unique_ptr<int[]> histogram(new int[Mandelbrot::MAX_ITER + 1]{});
 	std::unique_ptr<int[]> fractal(new int[W*H]{});
 
+	ZoomList zoomList(W, H);
+	zoomList.add(Zoom(W/2, H/2, 4.0/W));
+	zoomList.add(Zoom(3*W/4, 3*H/4, 1));	//zoom > 1: zoom out
+
 	// calc pixels and histogram: pixels per iter
 	for (int x=0; x<W; ++x)
 		for (int y=0; y<H; ++y)
 		{
-			double xFractal = (double(x) - W/2 - 200) / (H/2);
-			double yFractal = (double(y) - H/2) / (H/2);
-			std::cout << xFractal << " " << yFractal << std::endl;
+			std::pair<double, double> coords = zoomList.doZoom(x, y);
 
-			int iters = Mandelbrot::getIterations(xFractal, yFractal);
+			//std::cout << coords.first << " " << coords.second << std::endl;
+
+			int iters = Mandelbrot::getIterations(coords.first, coords.second);
 			if (iters != Mandelbrot::MAX_ITER)
 				++histogram[iters];
 			fractal[y*W+x] = iters;
