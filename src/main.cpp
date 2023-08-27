@@ -3,6 +3,8 @@ using std::cin;
 using std::cout;
 using std::endl;
 #include "Bitmap.h"
+#include "Mandelbrot.h"
+#include <cstdint>
 
 #define W 800
 #define H 600
@@ -15,11 +17,16 @@ int main()
 	for (int x=0; x<W; ++x)
 		for (int y=0; y<H; ++y)
 		{
-			bitmap.setPixel(x, y, 255, 255, 0);
-			double xFractal = (x - W/2) / (W/2 / 2);
-			double yFractal = (y - H/2) / (H/2 / 2);
+			double xFractal = (double(x) - W/2 - 200) / (H/2);
+			double yFractal = (double(y) - H/2) / (H/2);
 
-			//mandelbrot
+			std::cout << xFractal << " " << yFractal << std::endl;
+
+			int iters = Mandelbrot::getIterations(xFractal, yFractal);
+			uint8_t bright = (uint8_t)(256*((double)iters / Mandelbrot::MAX_ITER));
+			bright = bright*bright*bright;
+
+			bitmap.setPixel(x, y, 0, bright, 0);
 		}
 
 
