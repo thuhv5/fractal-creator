@@ -16,6 +16,7 @@ int main()
 {
 	Bitmap bitmap(W, H);
 	std::unique_ptr<int[]> histogram(new int[Mandelbrot::MAX_ITER + 1]{});
+	std::unique_ptr<int[]> fractal(new int[W*H]{});
 
 	for (int x=0; x<W; ++x)
 		for (int y=0; y<H; ++y)
@@ -25,7 +26,10 @@ int main()
 			std::cout << xFractal << " " << yFractal << std::endl;
 
 			int iters = Mandelbrot::getIterations(xFractal, yFractal);
-			++histogram[iters];
+			if (iters != Mandelbrot::MAX_ITER)
+				++histogram[iters];
+			fractal[y*W+x] = iters;
+
 			uint8_t bright = (uint8_t)(256*((double)iters / Mandelbrot::MAX_ITER));
 			bright = bright*bright*bright;
 
