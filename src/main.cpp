@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 using std::cin;
 using std::cout;
@@ -43,10 +44,11 @@ int main()
 			int iters = fractal[y*W+x];
 
 			double hue = 0;
-			for (int i=0; i<=iters; ++i)
-				hue += (double)histogram[i] / total;
+			if (iters < Mandelbrot::MAX_ITER)
+				for (int i=0; i<=iters; ++i)
+					hue += (double)histogram[i] / total;
 
-			int bright = hue * 255;
+			int bright = pow(255, hue);
 
 			bitmap.setPixel(x, y, 0, bright, 0);
 		}
