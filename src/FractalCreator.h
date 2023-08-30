@@ -15,6 +15,7 @@
 #include "Mandelbrot.h"
 #include "ZoomList.h"
 #include "Bitmap.h"
+#include "RGB.h"
 
 namespace fractal_img
 {
@@ -34,13 +35,13 @@ private:
 	void calculateIteration();
 	void calculateTotalIteration();
 	void drawFractal();
-	void addZoom(const Zoom& zoom);
 	void writeBitmap(std::string name);
 
 public:
 	FractalCreator(int width, int height);
 	virtual ~FractalCreator();
 
+	void addZoom(const Zoom& zoom);
 	void run(std::string filename);
 };
 
