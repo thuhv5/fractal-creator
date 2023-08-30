@@ -77,4 +77,14 @@ void FractalCreator::writeBitmap(std::string name)
 	m_bitmap.write(name);
 }
 
+void FractalCreator::run(std::string filename)
+{
+	this->addZoom(Zoom(295, 600-202, 0.1));
+	this->addZoom(Zoom(312, 600-304, 0.1));
+	this->calculateIteration();
+	this->calculateTotalIteration();
+	this->drawFractal();
+	this->writeBitmap(filename);
+}
+
 } /* namespace fractal_img */

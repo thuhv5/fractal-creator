@@ -3,6 +3,7 @@ using std::cin;
 using std::cout;
 using std::endl;
 #include "FractalCreator.h"
+#include "RGB.h"
 
 #define W 800
 #define H 600
@@ -11,14 +12,13 @@ using namespace fractal_img;
 
 int main()
 {
-	FractalCreator fractalCreator(800, 600);
+	RGB rgb1(4,5,6);
+	RGB rgb2(1,2,3);
+	RGB rgb3 = rgb1 - rgb2;
+	cout << rgb3.r << " " << rgb3.g << " " << rgb3.b << endl;
 
-	fractalCreator.addZoom(Zoom(295, 600-202, 0.1));
-	fractalCreator.addZoom(Zoom(312, 600-304, 0.1));
-	fractalCreator.calculateIteration();
-	fractalCreator.calculateTotalIteration();
-	fractalCreator.drawFractal();
-	fractalCreator.writeBitmap("test.bmp");
+	FractalCreator fractalCreator(800, 600);
+	fractalCreator.run("test.bmp");
 
 	cout << "Finished." << endl;
 	return 0;

@@ -29,15 +29,19 @@ private:
 	std::unique_ptr<int[]> m_fractal;
 	Bitmap m_bitmap;
 	ZoomList m_zoomList;
-public:
-	FractalCreator(int width, int height);
-	virtual ~FractalCreator();
 
+private:
 	void calculateIteration();
 	void calculateTotalIteration();
 	void drawFractal();
 	void addZoom(const Zoom& zoom);
 	void writeBitmap(std::string name);
+
+public:
+	FractalCreator(int width, int height);
+	virtual ~FractalCreator();
+
+	void run(std::string filename);
 };
 
 } /* namespace fractal_img */
