@@ -7,8 +7,6 @@
 
 #include "ZoomList.h"
 
-#include <iostream>
-
 namespace fractal_img
 {
 
@@ -25,7 +23,6 @@ void ZoomList::add(const Zoom &zoom)
 
 	m_scale *= zoom.m_scale;
 
-	std::cout << m_xCenter << ", " << m_yCenter << ", " << m_scale << std::endl;
 }
 
 std::pair<double, double> ZoomList::doZoom(int x, int y)
