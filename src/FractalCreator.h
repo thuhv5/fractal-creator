@@ -16,7 +16,7 @@
 #include "ZoomList.h"
 #include "Bitmap.h"
 #include "RGB.h"
-
+#include <vector>
 namespace fractal_img
 {
 
@@ -31,16 +31,25 @@ private:
 	Bitmap m_bitmap;
 	ZoomList m_zoomList;
 
+	std::vector<int> m_ranges;
+	std::vector<RGB> m_colors;
+	std::vector<int> m_rangeTotals;
+	bool m_bGotFirstRange{false};
+
 private:
+	void calculateTotalIterations();
+	void calculateRangeTotals();
 	void calculateIteration();
 	void calculateTotalIteration();
 	void drawFractal();
 	void writeBitmap(std::string name);
+	int getRange(int iterations) const; //won't modify member-variables
 
 public:
 	FractalCreator(int width, int height);
 	virtual ~FractalCreator();
 
+	void addRange(double rangeEnd, const RGB& rgb);
 	void addZoom(const Zoom& zoom);
 	void run(std::string filename);
 };
